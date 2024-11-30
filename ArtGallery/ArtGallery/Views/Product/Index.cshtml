@@ -1,0 +1,40 @@
+﻿<h1>All Products</h1>
+
+
+<div>
+   <form>
+  <div class="form-row align-items-center">
+    
+    <div class="col-auto">
+      <label class="sr-only" for="inlineFormInputGroup">Search by title</label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"></div>
+        </div>
+        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Search by title">
+      </div>
+    </div>
+    
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-2">Search</button>
+    </div>
+  </div>
+</form>
+</div>
+
+
+<div class="w-100 d-flex flex-wrap">
+    @for(int i=1; i<4;i++)
+    {
+        <div class="card mx-2 mb-4" style="width: 16rem;">
+            <img src="..." class="card-img-top" alt="product img" />
+            <div class="card-body">
+                <h5 class="card-title">Card Title</h5>
+                <p class="card-text">Card Description</p>
+                <a href="#" class="btn btn-dark">GoSomewhere</a>
+            </div>
+
+        </div>
+    }
+
+</div>
