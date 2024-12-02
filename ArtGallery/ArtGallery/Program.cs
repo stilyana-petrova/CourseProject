@@ -1,3 +1,5 @@
+using ArtGallery.Core.Abstraction;
+using ArtGallery.Core.Services;
 using ArtGallery.Data;
 using ArtGallery.Infrastructure.Data.Entities;
 using ArtGallery.Infrastructure.Data.Infrastructure;
@@ -30,6 +32,10 @@ namespace ArtGallery
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddTransient<IProductService, ProductService>();
+            builder.Services.AddTransient<ICategoryService, CategoryService>();
+            builder.Services.AddTransient<IArtistService, ArtistService>();
 
             var app = builder.Build();
             app.PrepareDatabase();

@@ -32,19 +32,47 @@ namespace ArtGallery.Core.Services
         {
             return _context.Products.Where(p => p.ArtistId==artistId).ToList();
         }
-        public int CreateArtist(string name, int yearBorn, string biography)
+        public int CreateArtist(string name, int yearBorn, string biography, string picture)
         {
             var artist = new Artist
             {
                 Name=name,
                 YearBorn = yearBorn,
-                Biography = biography
+                Biography = biography,
+                Picture=picture
             };
 
             _context.Artists.Add(artist);
             _context.SaveChanges();
 
             return artist.Id;
+        }
+
+        public bool Update(int artistId, string name, int yearBorn, string biography, string picture)
+        {
+            var artist = GetArtistById(artistId);
+            if (artist == default(Artist))
+            {
+                return false;
+            }
+            artist.Name = name;
+            artist.YearBorn = yearBorn;
+            artist.Biography = biography;
+            artist.Picture = picture;
+
+            _context.Update(artist);
+            return _context.SaveChanges() != 0;
+        }
+
+        public bool RemoveById(int artistId)
+        {
+            var artist = GetArtistById(artistId);
+            if (artist == default(Artist))
+            {
+                return false;
+            }
+            _context.Remove(artist);
+            return _context.SaveChanges() != 0;
         }
     }
 }

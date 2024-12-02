@@ -13,6 +13,8 @@ namespace ArtGallery.Core.Abstraction
         Artist GetArtistById(int artistId);
         List<Product> GetProductsByArtist(int artistId);
 
-        int CreateArtist(string name, int yearBorn, string biography);
+        int CreateArtist(string name, int yearBorn, string biography, string picture);
+        bool Update(int artistId, string name, int yearBorn, string biography, string picture) ;
+        public bool RemoveById(int artistId);
     }
 }

@@ -18,6 +18,7 @@ namespace ArtGallery.Infrastructure.Data.Entities
         public int YearBorn { get; set; }
 
         public string Biography { get; set; }
+        public string Picture {  get; set; }
 
         public virtual IEnumerable<Product> Products { get; set; } = new List<Product>();
     }

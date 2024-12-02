@@ -114,6 +114,9 @@ namespace ArtGallery.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Picture")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("YearBorn")
                         .HasColumnType("int");
 

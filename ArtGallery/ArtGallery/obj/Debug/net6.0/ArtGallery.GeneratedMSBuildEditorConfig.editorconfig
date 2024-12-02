@@ -40,6 +40,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Stilly/Documents/Stelly/Uni/Уеб програмиране/Web programming 2/CourseProject/ArtGallery/ArtGallery/Views/Artist/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stilly/Documents/Stelly/Uni/Уеб програмиране/Web programming 2/CourseProject/ArtGallery/ArtGallery/Views/Artist/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stilly/Documents/Stelly/Uni/Уеб програмиране/Web programming 2/CourseProject/ArtGallery/ArtGallery/Views/Artist/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stilly/Documents/Stelly/Uni/Уеб програмиране/Web programming 2/CourseProject/ArtGallery/ArtGallery/Views/Artist/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Stilly/Documents/Stelly/Uni/Уеб програмиране/Web programming 2/CourseProject/ArtGallery/ArtGallery/Views/Artist/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Stilly/Documents/Stelly/Uni/Уеб програмиране/Web programming 2/CourseProject/ArtGallery/ArtGallery/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
