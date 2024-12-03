@@ -21,6 +21,11 @@ namespace ArtGallery.Infrastructure.Data.Entities
         [Required]
         public int Quantity { get; set; }
         [Required]
-        public double UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
+        //public decimal Discount { get; set; }
+        //public decimal TotalPrice 
+        //{ 
+        //    get { return Quantity * UnitPrice - Quantity * UnitPrice * Discount / 100; }
+        //}
     }
 }
