@@ -23,5 +23,15 @@ namespace ArtGallery.Data
 
         public DbSet<OrderStatus> orderStatuses { get; set; }
         public DbSet<Stock> Stocks { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Artist)
+                .WithMany(a => a.Products)
+                .HasForeignKey(p => p.ArtistId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }

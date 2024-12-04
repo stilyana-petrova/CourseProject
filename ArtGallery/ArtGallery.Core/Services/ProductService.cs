@@ -22,7 +22,10 @@ namespace ArtGallery.Core.Services
             {
                 Name = name,
                 Description = description,
+                CategoryId = categoryId,
                 Category = _context.Categories.Find(categoryId),
+                ArtistId = artistId,
+                Artist=_context.Artists.Find(artistId),
                 Picture = picture,
                 Quantity = quantity,
                 Price = price,
@@ -87,6 +90,8 @@ namespace ArtGallery.Core.Services
             product.Description = description;
             product.CategoryId = categoryId;
             product.Category = _context.Categories.Find(categoryId);
+            product.ArtistId= artistId;
+            product.Artist=_context.Artists.Find(artistId);
             product.Picture = picture;
             product.Quantity = quantity;
             product.Price = price;

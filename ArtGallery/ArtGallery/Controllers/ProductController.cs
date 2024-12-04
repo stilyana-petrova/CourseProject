@@ -1,4 +1,5 @@
 ﻿using ArtGallery.Core.Abstraction;
+using ArtGallery.Infrastructure.Data.Entities;
 using ArtGallery.Models.Artist;
 using ArtGallery.Models.Category;
 using ArtGallery.Models.Product;
@@ -42,7 +43,24 @@ namespace ArtGallery.Controllers
         // GET: ProductController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Product item=_productService.GetProductById(id);
+            if (item == null) return NotFound();
+
+            ProductIndexVM product = new ProductIndexVM()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Description = item.Description,
+                CategoryId = item.CategoryId,
+                CategoryName = item.Category.Name,
+                ArtistId = item.ArtistId,
+                ArtistName = item.Artist.Name,
+                Picture = item.Picture,
+                Quantity = item.Quantity,
+                Price = item.Price,
+                Discount = item.Discount
+            };
+            return View(product);
         }
 
         // GET: ProductController/Create
@@ -86,28 +104,75 @@ namespace ArtGallery.Controllers
         // GET: ProductController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Product product = _productService.GetProductById(id);
+            if (product == null) return NotFound();
+
+            ProductCreateVM updatedProduct = new ProductCreateVM()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                CategoryId = product.CategoryId,
+                ArtistId = product.ArtistId,
+                Picture = product.Picture,
+                Quantity = product.Quantity,
+                Price = product.Price,
+                Discount = product.Discount
+            };
+
+            updatedProduct.Categories = _categoryService.GetCategories()
+                .Select(c => new CategoryVM()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                }).ToList();
+            updatedProduct.Artists = _artistService.GetArtists()
+                .Select(a => new ArtistVM()
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    YearBorn = a.YearBorn,
+                    Biography = a.Biography,
+                    Picture = a.Picture
+                }).ToList();
+
+            return View(updatedProduct);
         }
 
         // POST: ProductController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, ProductCreateVM product)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                var updated = _productService.Update(id, product.Name, product.Description, product.CategoryId, product.ArtistId, product.Picture, product.Quantity, product.Price, product.Discount);
+                if (updated) return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(product);
         }
 
         // GET: ProductController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Product item = _productService.GetProductById(id);
+            if (item == null) return NotFound();
+
+            ProductIndexVM product = new ProductIndexVM()
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Description = item.Description,
+                CategoryId = item.CategoryId,
+                CategoryName = item.Category.Name,
+                ArtistId = item.ArtistId,
+                ArtistName = item.Artist.Name,
+                Picture = item.Picture,
+                Quantity = item.Quantity,
+                Price = item.Price,
+                Discount = item.Discount
+            };
+            return View(product);
         }
 
         // POST: ProductController/Delete/5
@@ -115,14 +180,9 @@ namespace ArtGallery.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+           var deleted=_productService.RemoveById(id);
+            if(deleted) return RedirectToAction(nameof(Index));
+            else return View();
         }
     }
 }

@@ -12,10 +12,12 @@ namespace ArtGallery.Infrastructure.Data.Entities
         public int Id { get; set; }
         [Required]
         public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.UtcNow;
         [Required]
         public int OrderStatusId { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
+
         public bool IsDeleted { get; set; } = false;
         [Required]
         [MaxLength(30)]
@@ -35,7 +37,6 @@ namespace ArtGallery.Infrastructure.Data.Entities
         public string PaymentMethod { get; set; }
         public bool IsPaid { get; set; }
 
-        public OrderStatus OrderStatus { get; set; }
-        public List<OrderDetail> OrderDetail { get; set; }
+        public virtual List<OrderDetail> OrderDetail { get; set; }
     }
 }

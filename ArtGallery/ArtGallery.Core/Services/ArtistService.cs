@@ -1,6 +1,7 @@
 ﻿using ArtGallery.Core.Abstraction;
 using ArtGallery.Data;
 using ArtGallery.Infrastructure.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.Core.Services
 {
-    public class ArtistService:IArtistService
+    public class ArtistService : IArtistService
     {
         private readonly ApplicationDbContext _context;
         public ArtistService(ApplicationDbContext context)
@@ -30,16 +31,16 @@ namespace ArtGallery.Core.Services
 
         public List<Product> GetProductsByArtist(int artistId)
         {
-            return _context.Products.Where(p => p.ArtistId==artistId).ToList();
+            return _context.Products.Where(p => p.ArtistId == artistId).ToList();
         }
         public int CreateArtist(string name, int yearBorn, string biography, string picture)
         {
             var artist = new Artist
             {
-                Name=name,
+                Name = name,
                 YearBorn = yearBorn,
                 Biography = biography,
-                Picture=picture
+                Picture = picture
             };
 
             _context.Artists.Add(artist);
@@ -66,13 +67,21 @@ namespace ArtGallery.Core.Services
 
         public bool RemoveById(int artistId)
         {
-            var artist = GetArtistById(artistId);
-            if (artist == default(Artist))
-            {
-                return false;
-            }
-            _context.Remove(artist);
-            return _context.SaveChanges() != 0;
+            var artist = _context.Artists.Include(a => a.Products).FirstOrDefault(a => a.Id == artistId);
+
+            if (artist == null) return false;
+
+            _context.Artists.Remove(artist);
+            _context.SaveChanges();
+            return true;
+
+            //var artist = GetArtistById(artistId);
+            //if (artist == default(Artist))
+            //{
+            //    return false;
+            //}
+            //_context.Remove(artist);
+            //return _context.SaveChanges() != 0;
         }
     }
 }

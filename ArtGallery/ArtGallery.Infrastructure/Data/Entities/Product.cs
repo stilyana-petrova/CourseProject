@@ -28,9 +28,9 @@ namespace ArtGallery.Infrastructure.Data.Entities
         [Required]
         public string Picture { get; set; }
 
-        public Stock Stock { get; set; }
-        public List<OrderDetail> OrderDetail { get; set; }
-        public List<CartDetail> CartDetail { get; set; }
+        public virtual Stock Stock { get; set; }
+        public virtual List<OrderDetail> OrderDetail { get; set; }
+        public virtual List<CartDetail> CartDetail { get; set; }
 
       //  [Range(0, 100)]
         public int Quantity { get; set; }
