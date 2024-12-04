@@ -3,11 +3,14 @@ using ArtGallery.Infrastructure.Data.Entities;
 using ArtGallery.Models.Artist;
 using ArtGallery.Models.Category;
 using ArtGallery.Models.Product;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArtGallery.Controllers
 {
+    [Authorize(Roles="Admin")]
     public class ProductController : Controller
     {
         private readonly IArtistService _artistService;
@@ -19,6 +22,7 @@ namespace ArtGallery.Controllers
             _categoryService = categoryService;
             _productService = productService;
         }
+        [AllowAnonymous]
         // GET: ProductController
         public ActionResult Index(string searchStringCategoryName, string searchStringArtistName, string searchStringProductName)
         {
@@ -39,7 +43,7 @@ namespace ArtGallery.Controllers
                 }).ToList();
             return View(products);
         }
-
+        [AllowAnonymous]
         // GET: ProductController/Details/5
         public ActionResult Details(int id)
         {

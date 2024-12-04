@@ -6,8 +6,10 @@
 
 <h1>Edit</h1>
 
-<h4>ProductEditVM</h4>
-<hr />
+<div>
+    <a asp-action="Index"><i class="bi bi-arrow-90deg-left"></i></a>
+</div>
+<br />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -20,7 +22,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -71,9 +73,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

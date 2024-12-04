@@ -4,9 +4,13 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div>
+    <a asp-action="Index"><i class="bi bi-arrow-90deg-left"></i></a>
+</div>
+<br />
 
-<h4>ArtistVM</h4>
+<h1>Add an Artist</h1>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -42,9 +46,7 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

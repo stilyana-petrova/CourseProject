@@ -1,11 +1,13 @@
 ﻿using ArtGallery.Core.Abstraction;
 using ArtGallery.Infrastructure.Data.Entities;
 using ArtGallery.Models.Artist;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArtGallery.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class ArtistController : Controller
     {
         private readonly IArtistService _artistService;
@@ -13,6 +15,7 @@ namespace ArtGallery.Controllers
         {
             _artistService = artistService;
         }
+        [AllowAnonymous]
         // GET: ArtistController
         public ActionResult Index()
         {
@@ -28,7 +31,7 @@ namespace ArtGallery.Controllers
 
             return View(artists);
         }
-
+        [AllowAnonymous]
         // GET: ArtistController/Details/5
         public ActionResult Details(int id)
         {

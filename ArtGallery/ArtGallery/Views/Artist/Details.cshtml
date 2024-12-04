@@ -4,45 +4,45 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<a asp-action="Index"><i class="bi bi-arrow-90deg-left"></i></a>
+<br />
+<h1>@Html.DisplayFor(model => model.Name)</h1>
 
-<div>
-    <h4>ArtistVM</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.YearBorn)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.YearBorn)
-        </dd>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card-img left-side-product-box">
+                <img class="card-img left-side-product-box" src="@Html.DisplayFor(model=>model.Picture)" alt="Image" width="300" />
+            </div>
+        </div>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Biography)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Biography)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Picture)
-        </dt>
-        <dd class="col-sm-10">
-            <img src="@Html.DisplayFor(model => model.Picture)" alt="Image" width="100" />
-        </dd>
-       
-    </dl>
+
+        <div class="col-lg-6 right-side-pro-detail">
+            <p class="pt-2" style="font-size:20px">Birth Year: @Html.DisplayFor(model => model.YearBorn)</p>
+
+
+            <div class="col-lg-6 right-side-pro-detail">
+                <p class="pt-2" style="font-size:20px">Biography: </p>
+                <p class="pt-2" style="font-size:20px">@Html.DisplayFor(model => model.Biography)</p>
+
+
+
+            </div>
+            <br />
+            <a href="#" class="btn btn-dark">All products by this Artist</a>
+            <br /> <br />
+            <div>
+                @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Admin")))
+                {
+                    <a asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-square"></i></a>
+                }
+            </div>
+
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
