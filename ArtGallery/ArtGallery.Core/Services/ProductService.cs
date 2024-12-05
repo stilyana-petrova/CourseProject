@@ -101,6 +101,6 @@ namespace ArtGallery.Core.Services
             return _context.SaveChanges() != 0;
         }
 
-       
+      
     }
 }

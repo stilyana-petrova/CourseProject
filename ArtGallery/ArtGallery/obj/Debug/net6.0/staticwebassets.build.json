@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2yAEj/MbAcE4JPiVmq5hYbMSvJRyzxijxw6adOdcf5I=",
+  "Hash": "LoPhinltzB3YLelwHMgBaZ7L5PM/QxG+ND82WUGIuWc=",
   "Source": "ArtGallery",
   "BasePath": "_content/ArtGallery",
   "Mode": "Default",
@@ -7738,8 +7738,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "vwa26bmbsk",
-      "Integrity": "QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=",
+      "Fingerprint": "h8gwpvaug9",
+      "Integrity": "zzDYw486+DetkTrR4453rcZOJDAr8JtzLFhD/Pa/0Lo=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
@@ -8000,7 +8000,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 30 Nov 2024 12:59:39 GMT"
+          "Value": "Thu, 05 Dec 2024 16:24:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8037,7 +8037,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 30 Nov 2024 12:59:39 GMT"
+          "Value": "Thu, 05 Dec 2024 16:24:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8082,7 +8082,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 30 Nov 2024 12:59:39 GMT"
+          "Value": "Thu, 05 Dec 2024 16:24:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -8127,7 +8127,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 30 Nov 2024 12:59:39 GMT"
+          "Value": "Thu, 05 Dec 2024 16:24:04 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -35372,6 +35372,51 @@
       ]
     },
     {
+      "Route": "lib/jquery/dist/jquery.h8gwpvaug9.js",
+      "AssetFile": "C:\\Users\\Stilly\\Documents\\Stelly\\Uni\\Уеб програмиране\\Web programming 2\\CourseProject\\ArtGallery\\ArtGallery\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "287631"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"zzDYw486+DetkTrR4453rcZOJDAr8JtzLFhD/Pa/0Lo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 05 Dec 2024 09:29:06 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "h8gwpvaug9"
+        },
+        {
+          "Name": "label",
+          "Value": "lib/jquery/dist/jquery.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-zzDYw486+DetkTrR4453rcZOJDAr8JtzLFhD/Pa/0Lo="
+        }
+      ]
+    },
+    {
       "Route": "lib/jquery/dist/jquery.js",
       "AssetFile": "C:\\Users\\Stilly\\Documents\\Stelly\\Uni\\Уеб програмиране\\Web programming 2\\CourseProject\\ArtGallery\\ArtGallery\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "Selectors": [],
@@ -35382,7 +35427,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "287630"
+          "Value": "287631"
         },
         {
           "Name": "Content-Type",
@@ -35390,11 +35435,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=\""
+          "Value": "\"zzDYw486+DetkTrR4453rcZOJDAr8JtzLFhD/Pa/0Lo=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 30 Nov 2024 12:51:49 GMT"
+          "Value": "Thu, 05 Dec 2024 09:29:06 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -35404,7 +35449,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+          "Value": "sha256-zzDYw486+DetkTrR4453rcZOJDAr8JtzLFhD/Pa/0Lo="
         }
       ]
     },
@@ -35569,51 +35614,6 @@
         {
           "Name": "integrity",
           "Value": "sha256-PVB97BePQ5JED6qSU7EvSun5iseF5FinCKtqsv5X9uA="
-        }
-      ]
-    },
-    {
-      "Route": "lib/jquery/dist/jquery.vwa26bmbsk.js",
-      "AssetFile": "C:\\Users\\Stilly\\Documents\\Stelly\\Uni\\Уеб програмиране\\Web programming 2\\CourseProject\\ArtGallery\\ArtGallery\\wwwroot\\lib\\jquery\\dist\\jquery.js",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "287630"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/javascript"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sat, 30 Nov 2024 12:51:49 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "vwa26bmbsk"
-        },
-        {
-          "Name": "label",
-          "Value": "lib/jquery/dist/jquery.js"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
         }
       ]
     },
