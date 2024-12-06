@@ -1,4 +1,5 @@
 ﻿using ArtGallery.Infrastructure.Data.Entities;
+using ArtGallery.Models.Cart;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace ArtGallery.Core.Abstraction
         Task<ShoppingCart> GetUserCart();
         Task<ShoppingCart> GetCart(string userId);
         Task<int> GetCartItemsCount(string userId = "");
-        Task<bool> DoCheckout();
+        Task<bool> DoCheckout(CheckoutVM model);
             
     }
 }

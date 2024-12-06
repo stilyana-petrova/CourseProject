@@ -1,4 +1,5 @@
 ﻿using ArtGallery.Core.Abstraction;
+using ArtGallery.Models.Cart;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace ArtGallery.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return Unauthorized(); 
+                return Unauthorized();
             }
             var cartCount = await _cartService.AddItem(productId, quantity);
             if (redirect == 0)
@@ -43,18 +44,31 @@ namespace ArtGallery.Controllers
         {
             int cartItem = await _cartService.GetCartItemsCount();
             return Ok(cartItem);
-        } 
-        
-        public async Task<IActionResult> Checkout()
-        {
-            bool ischeckedout = await _cartService.DoCheckout();
-            if (!ischeckedout)
-            {
-                return NotFound();
-            }
-            return RedirectToAction("Index", "Product");
         }
 
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Checkout(CheckoutVM model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+            bool isCheckedOut = await _cartService.DoCheckout(model);
+            if (!isCheckedOut)
+                return RedirectToAction(nameof(OrderFailure));
+            return RedirectToAction(nameof(OrderSuccess));
+        }
+        public IActionResult OrderSuccess()
+        {
+            return View();
+        }
+        public IActionResult OrderFailure()
+        {
+            return View();
+        }
 
 
     }

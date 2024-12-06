@@ -1,6 +1,7 @@
 ﻿using ArtGallery.Core.Abstraction;
 using ArtGallery.Data;
 using ArtGallery.Infrastructure.Data.Entities;
+using ArtGallery.Models.Cart;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Server.IIS.Core;
@@ -158,13 +159,25 @@ namespace ArtGallery.Core.Services
             {
                 userId = GetUserId();
             }
+            var data= await (from cart in _context.ShoppingCarts
+                             join cartDetail in _context.CartDetails
+                             on cart.Id equals cartDetail.ShoppingCartId
+                             where cart.UserId == userId
+                             select new {cartDetail.Id}).ToListAsync();
+            return data.Count;
 
-            var itemCount = await _context.CartDetails
-                .Where(cd => _context.ShoppingCarts
-                    .Any(cart => cart.Id == cd.ShoppingCartId && cart.UserId == userId))
-                .CountAsync();
 
-            return itemCount;
+            //if (string.IsNullOrEmpty(userId))
+            //{
+            //    userId = GetUserId();
+            //}
+
+            //var itemCount = await _context.CartDetails
+            //    .Where(cd => _context.ShoppingCarts
+            //        .Any(cart => cart.Id == cd.ShoppingCartId && cart.UserId == userId))
+            //    .CountAsync();
+
+            //return itemCount;
 
 
             //LINQ
@@ -183,25 +196,37 @@ namespace ArtGallery.Core.Services
             //return itemCount;
         }
 
-        public async Task<bool> DoCheckout()
+        public async Task<bool> DoCheckout(CheckoutVM model)
         {
             using var transaction = _context.Database.BeginTransaction();
             try
             {
+                // logic
+                // move data from cartDetail to order and order detail then we will remove cart detail
                 var userId = GetUserId();
-                if (string.IsNullOrEmpty(userId)) throw new Exception("user is not logged in.");
+                if (string.IsNullOrEmpty(userId))
+                    throw new UnauthorizedAccessException("User is not logged-in");
                 var cart = await GetCart(userId);
-                if (cart is null) throw new Exception("invalid cart.");
-                
+                if (cart is null)
+                    throw new InvalidOperationException("Invalid cart");
                 var cartDetail = _context.CartDetails
-                    .Where(x => x.ShoppingCartId == cart.Id).ToList();
-                
-                if (cartDetail.Count == 0) throw new Exception("cart is empty");
+                                    .Where(a => a.ShoppingCartId == cart.Id).ToList();
+                if (cartDetail.Count == 0)
+                    throw new InvalidOperationException("Cart is empty");
+                var pendingRecord = _context.orderStatuses.FirstOrDefault(s => s.StatusName == "Pending");
+                if (pendingRecord is null)
+                    throw new InvalidOperationException("Order status does not have Pending status");
                 var order = new Order
                 {
                     UserId = userId,
                     CreateDate = DateTime.UtcNow,
-                    OrderStatusId = 1
+                    Name = model.Name,
+                    Email = model.Email,
+                    MobileNumber = model.MobileNumber,
+                    PaymentMethod = model.PaymentMethod,
+                    Address = model.Address,
+                    IsPaid = false,
+                    OrderStatusId = pendingRecord.Id
                 };
                 _context.Orders.Add(order);
                 _context.SaveChanges();
@@ -212,21 +237,36 @@ namespace ArtGallery.Core.Services
                         ProductId = item.ProductId,
                         OrderId = order.Id,
                         Quantity = item.Quantity,
-                        UnitPrice=item.UnitPrice,
+                        UnitPrice = item.UnitPrice
                     };
                     _context.OrderDetails.Add(orderDetail);
-                }
-                _context.SaveChanges();
 
-                //removing cartDetails
+                    // update stock here
+
+                    var stock = await _context.Stocks.FirstOrDefaultAsync(a => a.ProductId == item.ProductId);
+                    if (stock == null)
+                    {
+                        throw new InvalidOperationException("Stock is null");
+                    }
+
+                    if (item.Quantity > stock.Quantity)
+                    {
+                        throw new InvalidOperationException($"Only {stock.Quantity} items(s) are available in the stock");
+                    }
+                    // decrease the number of quantity from the stock table
+                    stock.Quantity -= item.Quantity;
+                }
+                //_db.SaveChanges();
+
+                // removing the cartdetails
                 _context.CartDetails.RemoveRange(cartDetail);
                 _context.SaveChanges();
                 transaction.Commit();
                 return true;
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+
                 return false;
             }
         }
