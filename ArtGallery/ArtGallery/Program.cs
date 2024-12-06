@@ -38,6 +38,7 @@ namespace ArtGallery
             builder.Services.AddTransient<ICategoryService, CategoryService>();
             builder.Services.AddTransient<IArtistService, ArtistService>();
             builder.Services.AddTransient<ICartService, CartService>();
+            builder.Services.AddTransient<IUserOrderService, UserOrderService>();
 
             var app = builder.Build();
             app.PrepareDatabase();

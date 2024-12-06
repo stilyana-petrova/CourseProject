@@ -25,6 +25,9 @@ namespace ArtGallery.Infrastructure.Data.Infrastructure
             var dataCategory = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
             SeedCategories(dataCategory);
 
+            var orderStatus=serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            SeedOrderStatus(orderStatus);
+
             return app;
         }
         private static async Task RoleSeeder(IServiceProvider serviceProvider)
@@ -80,6 +83,23 @@ namespace ArtGallery.Infrastructure.Data.Infrastructure
                 new Category {Name="Calendars"},
             });
             dataCategory.SaveChanges();
+        }
+        private static void SeedOrderStatus(ApplicationDbContext data) 
+        {
+            if (data.orderStatuses.Any())
+            {
+                return;
+            }
+            data.orderStatuses.AddRange(new[]
+            {
+                new OrderStatus{StatusName="Pending", StatusId=1},
+                new OrderStatus{StatusName="Shipped", StatusId=2},
+                new OrderStatus{StatusName="Delivered", StatusId=3},
+                new OrderStatus{StatusName="Cancelled", StatusId=4},
+                new OrderStatus{StatusName="Returned", StatusId=5},
+                new OrderStatus{StatusName="Refund", StatusId=6},
+            });
+            data.SaveChanges();
         }
     }
 }

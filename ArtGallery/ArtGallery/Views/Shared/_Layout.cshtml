@@ -30,6 +30,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="UserOrder" asp-action="UserOrders">My Orders</a>
+                        </li>
                         @if ((this.User.Identity.IsAuthenticated) && (this.User.IsInRole("Admin")))
                         {
                             <li class="nav-item">

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace ArtGallery.Core.Services
 {
-    public class CartService :ICartService
+    public class CartService : ICartService
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -33,7 +33,7 @@ namespace ArtGallery.Core.Services
             using var transaction = _context.Database.BeginTransaction();
             try
             {
-                
+
                 if (string.IsNullOrEmpty(userId))
                 {
                     throw new Exception("user is not logged in");
@@ -57,11 +57,13 @@ namespace ArtGallery.Core.Services
                 }
                 else
                 {
+                    var product = _context.Products.Find(productId);
                     cartItem = new CartDetail
                     {
                         ProductId = productId,
                         ShoppingCartId = cart.Id,
-                        Quantity = quantity
+                        Quantity = quantity,
+                        UnitPrice = product.Price
                     };
                     _context.CartDetails.Add(cartItem);
                 }
@@ -109,7 +111,7 @@ namespace ArtGallery.Core.Services
                 _context.SaveChanges();
             }
             catch (Exception ex)
-            {  }
+            { }
             var cartItemCount = await GetCartItemsCount(userId);
             return cartItemCount;
         }
@@ -150,7 +152,7 @@ namespace ArtGallery.Core.Services
 
         }
 
-        public async Task<int> GetCartItemsCount(string userId="")
+        public async Task<int> GetCartItemsCount(string userId = "")
         {
             if (string.IsNullOrEmpty(userId))
             {
@@ -179,6 +181,54 @@ namespace ArtGallery.Core.Services
             //    .CountAsync();
 
             //return itemCount;
+        }
+
+        public async Task<bool> DoCheckout()
+        {
+            using var transaction = _context.Database.BeginTransaction();
+            try
+            {
+                var userId = GetUserId();
+                if (string.IsNullOrEmpty(userId)) throw new Exception("user is not logged in.");
+                var cart = await GetCart(userId);
+                if (cart is null) throw new Exception("invalid cart.");
+                
+                var cartDetail = _context.CartDetails
+                    .Where(x => x.ShoppingCartId == cart.Id).ToList();
+                
+                if (cartDetail.Count == 0) throw new Exception("cart is empty");
+                var order = new Order
+                {
+                    UserId = userId,
+                    CreateDate = DateTime.UtcNow,
+                    OrderStatusId = 1
+                };
+                _context.Orders.Add(order);
+                _context.SaveChanges();
+                foreach (var item in cartDetail)
+                {
+                    var orderDetail = new OrderDetail
+                    {
+                        ProductId = item.ProductId,
+                        OrderId = order.Id,
+                        Quantity = item.Quantity,
+                        UnitPrice=item.UnitPrice,
+                    };
+                    _context.OrderDetails.Add(orderDetail);
+                }
+                _context.SaveChanges();
+
+                //removing cartDetails
+                _context.CartDetails.RemoveRange(cartDetail);
+                _context.SaveChanges();
+                transaction.Commit();
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         private string GetUserId()
         {

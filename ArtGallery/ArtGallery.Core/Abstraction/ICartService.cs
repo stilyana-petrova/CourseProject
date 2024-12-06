@@ -14,5 +14,7 @@ namespace ArtGallery.Core.Abstraction
         Task<ShoppingCart> GetUserCart();
         Task<ShoppingCart> GetCart(string userId);
         Task<int> GetCartItemsCount(string userId = "");
+        Task<bool> DoCheckout();
+            
     }
 }

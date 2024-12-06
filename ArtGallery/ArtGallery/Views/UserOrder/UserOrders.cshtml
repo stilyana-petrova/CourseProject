@@ -1,0 +1,76 @@
+﻿@using ArtGallery.Infrastructure.Data.Entities
+@model IEnumerable<Order>
+@{
+}
+<div style="width:100%" class="mt-2">
+
+    <h4>My Orders</h4>
+    @if (Model != null && Model.Count() > 0)
+    {
+        <table class="table table-warning">
+            <tr>
+                <th>OrderDate</th>
+                <th>OrderStatus</th>
+            </tr>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.CreateDate.ToString("dd-MM-yyyy")</td>
+                    <td>@order.OrderStatus.StatusName</td>
+                </tr>
+                @if (order.OrderDetail != null && order.OrderDetail.Count > 0)
+                {
+                    <tr>
+                        <td>
+                            <table class="table table-warning">
+                                <tr>
+                                    <td>
+                                        Total:
+                                    </td>
+                                    <td>
+                                        @(order.OrderDetail.Select(item => item.Product.Price * item.Quantity).Sum())
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Book</th>
+                                    <th>Image</th>
+                                    <th>Genre</th>
+                                    <th>Unit Price(BGN)</th>
+                                    <th>Total Price</th>
+                                </tr>
+                                @foreach (var item in order.OrderDetail)
+                                {
+                                    <tr>
+                                        <td>@item.Product.Name</td>
+                                        <td>                                    
+                                                <img src="/images/@item.Product.Picture" style="width:80px;height:100px" />                                           
+                                        </td>
+                                        <td>@item.Product.Artist.Name</td>
+                                        <td>@item.Product.Price X @item.Quantity</td>
+                                        <td> @(item.Product.Price * item.Quantity) </td>
+                                    </tr>
+                                }
+                            </table>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+
+    }
+    else
+    {
+        <h5>No orders</h5>
+    }
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+
+

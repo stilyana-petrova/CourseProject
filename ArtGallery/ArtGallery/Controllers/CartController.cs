@@ -43,6 +43,16 @@ namespace ArtGallery.Controllers
         {
             int cartItem = await _cartService.GetCartItemsCount();
             return Ok(cartItem);
+        } 
+        
+        public async Task<IActionResult> Checkout()
+        {
+            bool ischeckedout = await _cartService.DoCheckout();
+            if (!ischeckedout)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("Index", "Product");
         }
 
 
